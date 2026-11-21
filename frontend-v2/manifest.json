@@ -1,0 +1,9 @@
+{
+  "name": "evm-token-launchpad",
+  "short_name": "launchpad",
+  "description": "Constant-product ERC-20 bonding curve launchpad with automatic Uniswap V2 LP graduation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0E",
+  "theme_color": "#0B0B0E"
+}

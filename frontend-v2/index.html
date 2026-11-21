@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>evm-token-launchpad | Bonding Curve Terminal</title>
+  <meta name="description" content="Constant-product ERC-20 bonding curve launchpad with automatic Uniswap V2 LP graduation." />
+  <meta name="theme-color" content="#0B0B0E" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.11.1/ethers.umd.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-group">
+      <span class="brand-title">evm-token-launchpad</span>
+      <span class="mono-badge">x * y = k</span>
+      <span class="mono-badge" id="mode-badge">Local Simulator</span>
+    </div>
+
+    <div class="topbar-actions">
+      <input
+        id="factory-address-input"
+        class="mono-input factory-input"
+        type="text"
+        placeholder="Factory 0x0000...0000"
+        value="0x0000000000000000000000000000000000000000"
+        title="BondingCurveFactory contract address"
+      />
+      <button class="btn-secondary" onclick="openCreateModal()">+ Launch Token</button>
+      <button class="btn-primary" id="wallet-btn" onclick="connectWallet()">Connect Wallet</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Bonding Curve Pools</h2>
+          <p class="panel-sub">66% curve sale | 30% Uniswap V2 LP | 4% promo or burn</p>
+        </div>
+        <div class="filter-group">
+          <button class="tab-btn active" data-filter="all" onclick="setFilter('all', this)">All</button>
+          <button class="tab-btn" data-filter="active" onclick="setFilter('active', this)">Curve</button>
+          <button class="tab-btn" data-filter="graduated" onclick="setFilter('graduated', this)">Graduated</button>
+        </div>
+      </div>
+
+      <div id="token-list" class="token-grid"></div>
+    </section>
+
+    <aside class="panel trade-panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title" id="selected-title">Select a Token</h2>
+          <p class="panel-sub mono" id="selected-address">0x0000...0000</p>
+        </div>
+        <span class="mono-badge" id="selected-status">CURVE ACTIVE</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-label">Spot Price</span>
+          <span class="stat-value mono" id="stat-price">0.0000000023 ETH</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Real Reserve</span>
+          <span class="stat-value mono" id="stat-reserve">0.0000 / 3.00 ETH</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Tokens Sold</span>
+          <span class="stat-value mono" id="stat-sold">0M / 660M</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Fee Split</span>
+          <span class="stat-value mono" id="stat-tax">1.0% total</span>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-labels">
+          <span>Uniswap V2 LP Graduation Progress</span>
+          <span class="mono" id="stat-progress">0.0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="trade-tabs">
+        <button class="tab-btn active" id="tab-buy" onclick="setTradeSide('buy')">Buy</button>
+        <button class="tab-btn" id="tab-sell" onclick="setTradeSide('sell')">Sell</button>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" id="amount-label" for="trade-amount">Pay Amount (ETH)</label>
+        <div class="input-row">
+          <input
+            id="trade-amount"
+            class="mono-input"
+            type="number"
+            step="0.01"
+            min="0"
+            value="0.25"
+            oninput="updateQuote()"
+          />
+          <span class="unit-tag mono" id="amount-unit">ETH</span>
+        </div>
+        <div class="preset-row" id="preset-row">
+          <button class="btn-chip" onclick="setPreset('0.05')">0.05 ETH</button>
+          <button class="btn-chip" onclick="setPreset('0.25')">0.25 ETH</button>
+          <button class="btn-chip" onclick="setPreset('0.50')">0.50 ETH</button>
+          <button class="btn-chip" onclick="setPreset('1.00')">1.00 ETH</button>
+        </div>
+      </div>
+
+      <div class="quote-box">
+        <div class="quote-line">
+          <span>Estimated Output</span>
+          <span class="mono" id="quote-out">0 TOKENS</span>
+        </div>
+        <div class="quote-line">
+          <span>Protocol + Creator Fee</span>
+          <span class="mono" id="quote-fee">0.0025 ETH</span>
+        </div>
+        <div class="quote-line">
+          <span>Max Wallet Guard</span>
+          <span class="mono">20,000,000 (2%)</span>
+        </div>
+      </div>
+
+      <button class="btn-primary full-width" id="trade-submit-btn" onclick="submitTrade()">
+        Execute Buy
+      </button>
+
+      <button
+        class="btn-secondary full-width"
+        id="migrate-btn"
+        style="display: none; margin-top: 8px"
+        onclick="triggerMigrate()"
+      >
+        Graduate Pool to Uniswap V2 (Burn LP to 0x...dEaD)
+      </button>
+
+      <div class="tx-log" id="tx-log">
+        <div class="log-title">Curve Event Log</div>
+        <div id="log-entries" class="log-entries"></div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="modal-backdrop" id="create-modal" style="display: none">
+    <div class="modal-card">
+      <div class="panel-header">
+        <h3 class="panel-title">Deploy ERC-1167 CurveClone</h3>
+        <button class="btn-chip" onclick="closeCreateModal()">Close</button>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="new-name">Token Name</label>
+        <input id="new-name" class="mono-input" type="text" placeholder="Chai Protocol" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="new-symbol">Ticker Symbol</label>
+        <input id="new-symbol" class="mono-input" type="text" placeholder="CHAI" maxlength="10" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="new-tax">Creator Tax (0 to 400 bps, max 4%)</label>
+        <input id="new-tax" class="mono-input" type="number" value="0" min="0" max="400" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="new-dev-buy">Optional Initial Buy (ETH)</label>
+        <input id="new-dev-buy" class="mono-input" type="number" value="0" min="0" step="0.01" />
+      </div>
+
+      <button class="btn-primary full-width" onclick="createNewToken()">
+        Create Bonding Curve Token
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
