@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440" fill="none">
+  <rect width="900" height="440" rx="16" fill="#0B0B0E"/>
+  <rect x="20" y="20" width="860" height="400" rx="12" fill="#141418" stroke="#26262E" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="48" y="60" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">evm-token-launchpad</text>
+  <rect x="266" y="42" width="98" height="26" rx="13" fill="#141418" stroke="#26262E"/>
+  <text x="284" y="59" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Solidity</text>
+
+  <rect x="374" y="42" width="124" height="26" rx="13" fill="#141418" stroke="#26262E"/>
+  <text x="390" y="59" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">ERC-1167 Clone</text>
+
+  <rect x="708" y="40" width="144" height="30" rx="8" fill="#FFFFFF"/>
+  <text x="734" y="59" fill="#000000" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700">+ Launch Token</text>
+
+  <line x1="20" y1="88" x2="880" y2="88" stroke="#26262E"/>
+
+  <!-- Left Curve Chart & Pool Progress -->
+  <rect x="44" y="110" width="490" height="284" rx="10" fill="#0B0B0E" stroke="#26262E"/>
+  <text x="68" y="138" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">CONSTANT PRODUCT BONDING CURVE // (R_ETH + V_ETH) * R_TOK = K</text>
+  <text x="68" y="164" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">CHAI (Adrak Chai Coin)</text>
+  <text x="68" y="184" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">reserve: 2.46 / 3.00 ETH  |  sold: 541.2M / 660M  |  max_wallet: 2%</text>
+
+  <!-- Curve Graph -->
+  <rect x="68" y="200" width="442" height="122" rx="8" fill="#141418" stroke="#26262E"/>
+  <path d="M 92 302 Q 245 294 378 232 T 484 214" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+  <circle cx="412" cy="224" r="5" fill="#FFFFFF"/>
+  <line x1="412" y1="224" x2="412" y2="310" stroke="#26262E" stroke-dasharray="3 3"/>
+  <text x="86" y="224" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">Graduation: 82.0% -&gt; Auto Uniswap V2 LP + 0x...dEaD Burn</text>
+
+  <!-- Progress Track -->
+  <rect x="68" y="340" width="442" height="10" rx="5" fill="#141418" stroke="#26262E"/>
+  <rect x="69" y="341" width="362" height="8" rx="4" fill="#FFFFFF"/>
+  <text x="68" y="372" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">66% Curve Sale  |  30% Locked LP  |  4% Promo / Dead Burn</text>
+
+  <!-- Right Trade Panel -->
+  <rect x="554" y="110" width="302" height="284" rx="10" fill="#0B0B0E" stroke="#26262E"/>
+  <text x="578" y="138" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">SWAP ON BONDING CURVE</text>
+
+  <rect x="578" y="152" width="254" height="32" rx="8" fill="#141418" stroke="#26262E"/>
+  <rect x="582" y="156" width="122" height="24" rx="6" fill="#FFFFFF"/>
+  <text x="631" y="172" fill="#000000" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700">Buy</text>
+  <text x="758" y="172" fill="#A1A1AA" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">Sell</text>
+
+  <rect x="578" y="198" width="254" height="42" rx="8" fill="#141418" stroke="#26262E"/>
+  <text x="592" y="223" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">0.25 ETH</text>
+  <text x="784" y="223" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">MAX 2%</text>
+
+  <rect x="578" y="252" width="254" height="68" rx="8" fill="#141418" stroke="#26262E"/>
+  <text x="592" y="274" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Receive: 14,820,410 CHAI</text>
+  <text x="592" y="294" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Fee:     0.0025 ETH (1.0%)</text>
+  <text x="592" y="311" fill="#71717A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">Solvency check: PASS</text>
+
+  <rect x="578" y="336" width="254" height="38" rx="8" fill="#FFFFFF"/>
+  <text x="666" y="359" fill="#000000" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Execute Buy</text>
+</svg>
