@@ -1,0 +1,22 @@
+{
+  "name": "evm-token-launchpad",
+  "version": "1.0.0",
+  "description": "Solidity 0.8.24 constant-product bonding curve token factory (ERC-1167 minimal clones) with automatic Uniswap V2 LP graduation and monochrome web UI.",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js",
+    "node": "hardhat node",
+    "ui": "npx --yes serve frontend-v2 -l 5173"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@openzeppelin/contracts-upgradeable": "^5.0.2",
+    "dotenv": "^16.4.7"
+  }
+}
